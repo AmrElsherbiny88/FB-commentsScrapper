@@ -88,12 +88,15 @@ def extract_profile_links_from_comments(driver):
                             profile_url = link.get_attribute("href")
                             if profile_url and "facebook.com" in profile_url:
                                 clean_url = profile_url.split('?')[0].split('&')[0]
-                                if any(x in clean_url for x in ['/profile.php', '/user/', '/people/']) and '/groups/' not in clean_url:
+                                if any(x in clean_url for x in ['/profile.php', '/user/', '/people/ , comment']) and '/groups/' not in clean_url:
                                     if "id=" in profile_url:
-                                        # preserve id param
+                                   
                                         clean_url = profile_url.split("&")[0]
                                     elif profile_url.count("/") >= 4:
                                         parts = profile_url.split('/')
+
+                                    else: 
+                                        clean_url = profile_url
                                         if parts[3]:
                                             clean_url = f"https://www.facebook.com/{parts[3]}"
                                     profile_links.add(clean_url)
